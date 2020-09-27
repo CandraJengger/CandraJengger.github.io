@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CandraJengger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet"> 
+  <style>
+    h1 {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-60%, -50%);
+      font-family: 'Indie Flower', cursive;
+      font-size: 3em;
+    }
+
+    .spanPoint {
+      opacity: 0;
+      transition: all 1s ease;
+    }
+
+    .spanPoint.fade {
+      animation-name: fadeDots;
+      animation-duration: 1s;
+      animation-timing-function: ease;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fadeDots {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Tahap Proses<span id="dots">....</span></h1>
+
+  <script>
+    const dotsSpan = document.querySelector('#dots')
+    const dotsTextContent = dotsSpan.textContent
+    const dots = dotsTextContent.split('')
+    dotsSpan.textContent = ''
+    for (let i = 0; i < dots.length; i++) {
+      dotsSpan.innerHTML += `<span class="spanPoint">${dots[i]}</span>`
+    }
+
+    let char = 0
+    let timer = setInterval(onTick, 200)
+
+    function onTick () {
+      const span = document.querySelectorAll('span')[char]
+      span.classList.add('fade')
+      char++
+
+      if (char === dots.length) {
+        complete()
+        return
+      }
+    }
+
+    function complete () {
+      clearInterval(timer)
+      timer = null
+    }
+  </script>
+</body>
+</html>
